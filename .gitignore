@@ -1,1 +1,6 @@
 export/
+.DS_Store
+*.kate-swp
+/export
+/export
+desktop.ini
