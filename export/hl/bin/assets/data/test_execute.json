@@ -1,8 +1,0 @@
-{
-  "name": "Test Execution",
-  "description": "Attempts to launch Super Mario 64 using Project 64.",
-  "path": "C:/Users/Alory/Apps/Luna_Project64/",
-  "file": "Project64.exe",
-  "rom": "C:/Users/Alory/Saved Games/Roms/N64/Super Mario 64 (USA).z64",
-  "ranking": 5
-}
