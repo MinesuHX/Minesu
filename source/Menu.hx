@@ -101,7 +101,7 @@ var systemUsername:String = Sys.environment()["USERNAME"];
 			currentDate = "" + // Blank
 			(now.getMonth() + 1) + "/" + (now.getDay()) + " - " + // MM/DD
 			hourTwelve  + ":" + // Hours
-			padZero("" + now.getMinutes()) + ":" + padZero("" + now.getSeconds()) + (if (isPMTime) " PM" else " AM") + // Minutes + Seconds + AMPM
+			padZero("" + now.getMinutes()) + ":" + /*padZero("" + now.getSeconds()) +*/ (if (isPMTime) " PM" else " AM") + // Minutes + Seconds + AMPM
 			#if debug
 			"\nDebug build ran by " +
 			#end
