@@ -19,19 +19,18 @@ class Menu extends FlxState
 
 var backgroundA:FlxSprite;
 var backgroundB:FlxSprite;
-var backgroundDots:FlxSprite;
-var currentDate:String;
+var backgroundDots:FlxSprite; // Wallpaper
 
-//	var TextFormat = {
-
-	var defaultFont:String = "FOT-RodinBokutohPro-B.otf";
-	var mainColor:Int = 0xff403a46;
-	//var alignment (whatever type this is)
-
-//../\\\	}; // thanks glintfish, but more thanks to some internet sources for telling me i need a semicolon and https://softwarepatternslexicon.com/patterns-haxe/2/6/ for telling me i need ot put the "var" behind TextFormat
-// update: found out tyepdefs are useless
+// Text
+var defaultFont:String = "FOT-RodinBokutohPro-B.otf";
+var mainColor:Int = 0xff403a46;
+// Text Elements
 var mainText:FlxText;
 var statisticsText:FlxText;
+// Date and Time
+var currentDate:String;
+var properHour:Int;
+var isPMTime:Bool;
 
 	override public function create()
 	{
@@ -82,8 +81,31 @@ var statisticsText:FlxText;
 
 	function appGetDate(){ // to whoever sees the first commit of this, say thank you to spile from the haxe discord
 		var now = Date.now();
-			currentDate = "Date: " + (now.getMonth() + 1) + "/" + (now.getDay() + 1) + " - " + (now.getHours() + 1) + ":" + (now.getMinutes() + 1) + ":" + (now.getSeconds() + 1);
+		var hourTwelve:String;
+
+		/*if ((now.getHours() > 12){
+				isPMTime = true;
+			}else{
+				isPMTime = false;
+			}*/
+
+		isPMTime = (now.getHours() > 12) ? true: false;
+		hourTwelve = (!isPMTime && (now.getHours() < 1) ) ? "12": ("" + now.getHours());
+		//trace(isPMTime);
+
+			currentDate = "" + // Blank
+			(now.getMonth() + 1) + "/" + (now.getDay() + 1) + " - " + // MM/DD
+			hourTwelve  + ":" + // Hours
+			padZero("" + now.getMinutes()) + ":" + padZero("" + now.getSeconds()) + (if (isPMTime) "PM" else "AM"); // Everything else.
+
+			// https://discord.com/channels/162395145352904705/165234904815239168/886052839137378384
+
+
 			statisticsText.text = currentDate;
     }
+
+    function padZero(s:String):String {
+		return (s.length == 1) ? "0" + s : s;
+	}
 
 }
