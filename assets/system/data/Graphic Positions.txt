@@ -1,0 +1,20 @@
+Text Positions:
+    - Main Text: 122, 60
+    - Date/Time (Aligned from right) - 1,801, 70
+
+Graphic Positions:
+    - Top Buttons:
+        - Home: 103, 133
+        - Categories: 273, 133
+        - Settings: 443, 113
+            - Customize: 613, 113
+    - Main Body - 103, 271
+
+
+Colors:
+#e9ebff - Background
+#c7cae5 - Gradient
+Dots are Screen at 10% Opacity
+
+#403a46 - Main text.
+#726b78 - Minor text.
