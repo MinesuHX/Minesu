@@ -31,12 +31,15 @@ var statisticsText:FlxText;
 var currentDate:String;
 var properHour:Int;
 var isPMTime:Bool;
+var systemUsername:String = Sys.environment()["USERNAME"];
 
 	override public function create()
 	{
 		super.create();
 
 		createWallpaper();
+
+		//trace(Sys.environment);
 
 		mainText = new FlxText(122, 60, 500); // x, y, width
 		mainText.text = "Hello World";
@@ -57,10 +60,12 @@ var isPMTime:Bool;
 		backgroundA = new FlxSprite();
 			backgroundA.loadGraphic("assets/images/backgrounds/Wallpaper.png");
 			backgroundA.screenCenter();
+			backgroundA.color = 0xFFe9ebff;
 			add(backgroundA);
 		backgroundB = new FlxSprite();
 			backgroundB.loadGraphic("assets/images/backgrounds/Gradient.png");
 			backgroundB.screenCenter();
+			backgroundB.color = 0xFFc7cae5;
 			add(backgroundB);
 		backgroundDots = new FlxSprite();
 			backgroundDots.loadGraphic("assets/images/backgrounds/Dots.png");
@@ -94,10 +99,13 @@ var isPMTime:Bool;
 		//trace(isPMTime);
 
 			currentDate = "" + // Blank
-			(now.getMonth() + 1) + "/" + (now.getDay() + 1) + " - " + // MM/DD
+			(now.getMonth() + 1) + "/" + (now.getDay()) + " - " + // MM/DD
 			hourTwelve  + ":" + // Hours
-			padZero("" + now.getMinutes()) + ":" + padZero("" + now.getSeconds()) + (if (isPMTime) "PM" else "AM"); // Everything else.
-
+			padZero("" + now.getMinutes()) + ":" + padZero("" + now.getSeconds()) + (if (isPMTime) " PM" else " AM") + // Minutes + Seconds + AMPM
+			#if debug
+			"\nDebug build ran by " +
+			#end
+			"" + systemUsername;
 			// https://discord.com/channels/162395145352904705/165234904815239168/886052839137378384
 
 
