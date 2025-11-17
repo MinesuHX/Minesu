@@ -19,10 +19,10 @@
 	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" />
 
 	<!--HTML5-specific-->
-	<window if="html5" resizable="true" />
+	<window if="html5" resizable="false" /> <!-- I feel the only instance where I would make a web version would be an app that would launch other websites, but then that's what the New Tab page is for.
 
 	<!--Desktop-specific-->
-	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
+	<window if="desktop" orientation="landscape" fullscreen="false" resizable="false" />
 
 	<!--Mobile-specific-->
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" />
@@ -94,7 +94,7 @@
 	</section>
 	<section if="debug || hl">
 		<echo value="You are compiling with debug mode. Proceed with caution!" />
-		<!--Debug Icons-->
+		<!--Debug Icons, don't work.-->
 		<icon path="assets/system/images/icons/Debug.png" unless="mac"/>
 		<icon path="assets/system/images/icons/macOS Debug.png" if="mac"/>
 	</section>

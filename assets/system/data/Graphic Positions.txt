@@ -7,7 +7,7 @@ Graphic Positions:
         - Home: 103, 133
         - Categories: 273, 133
         - Settings: 443, 113
-            - Customize: 613, 113
+        - Customize: 613, 113
     - Main Body - 103, 271
 
 

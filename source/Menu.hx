@@ -13,6 +13,8 @@ import Sys; //lowercase and uppercase Sys aer differetn!
 
 import Date;
 
+import flixel.group.FlxGroup.FlxTypedGroup;
+
 
 class Menu extends FlxState
 {
@@ -24,35 +26,75 @@ var backgroundDots:FlxSprite; // Wallpaper
 // Text
 var defaultFont:String = "FOT-RodinBokutohPro-B.otf";
 var mainColor:Int = 0xff403a46;
+
 // Text Elements
 var mainText:FlxText;
 var statisticsText:FlxText;
+
 // Date and Time
 var currentDate:String;
 var properHour:Int;
 var isPMTime:Bool;
 var systemUsername:String = Sys.environment()["USERNAME"];
 
+// Body
+var menuBody:FlxSprite;
+
+// Primary Buttons + Subset(?)
+var nameTitle:String = "Home Mesu";
+
+var menuNavButton:FlxSprite;
+var strumLine:FlxTypedGroup<FlxSprite>;
+
+var menuEntries:Array<String> = ["Home", "Categories", "Customize", "Settings"];
+var menuXPositions:Array<Int> = [103, 273, 443, 613];
+
+var systemBar:FlxSprite;
+
 	override public function create()
 	{
 		super.create();
-
 		createWallpaper();
 
-		//trace(Sys.environment);
-
 		mainText = new FlxText(122, 60, 500); // x, y, width
-		mainText.text = "Hello World";
+		mainText.text = nameTitle;
 		mainText.setFormat(defaultFont, 52, mainColor);
-		//mainText.setBorderStyle(OUTLINE, FlxColor.RED, 1);
 		add(mainText);
 
 		statisticsText = new FlxText(1801, 70, 500); // x, y, width
 		statisticsText.text = "____";
 		statisticsText.setFormat(defaultFont, 24, mainColor, RIGHT);
-		//statisticsText.setBorderStyle(OUTLINE, FlxColor.RED, 1);
-		statisticsText.x = 1801 - statisticsText.width;
+		statisticsText.x = (1920 - 119) - statisticsText.width; // Should work with custom screen resolutions when the time comes for that.
 		add(statisticsText);
+
+		strumLine = new FlxTypedGroup<FlxSprite>();
+		add(strumLine);
+
+		menuBody = new FlxSprite();
+		menuBody.loadGraphic("assets/images/menuBody/mainMenu/Main Body.png");
+		menuBody.x = 103;
+		menuBody.y = 271;
+		menuBody.color = 0xFFFFFFFF;
+		add(menuBody);
+
+		systemBar = new FlxSprite();
+		systemBar.loadGraphic("assets/images/bottomBar/bar.png");
+		systemBar.y = FlxG.height - systemBar.height;
+		add(systemBar);
+
+		for (i in menuEntries){
+
+		menuNavButton = new FlxSprite();
+		menuNavButton.loadGraphic("assets/images/navButtons/" + i + ".png");
+			for (k in menuXPositions){
+				menuNavButton.x = k;
+			}
+
+		menuNavButton.y = 133;
+		add(menuNavButton);
+		}
+
+
 
 	}
 
@@ -78,9 +120,6 @@ var systemUsername:String = Sys.environment()["USERNAME"];
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
-
-		//statisticsText.text = Date.fromString("MM/DD - HH:MM AM") + "\n";
-		//
 		appGetDate();
 	}
 
@@ -88,28 +127,19 @@ var systemUsername:String = Sys.environment()["USERNAME"];
 		var now = Date.now();
 		var hourTwelve:String;
 
-		/*if ((now.getHours() > 12){
-				isPMTime = true;
-			}else{
-				isPMTime = false;
-			}*/
-
 		isPMTime = (now.getHours() > 12) ? true: false;
 		hourTwelve = (!isPMTime && (now.getHours() < 1) ) ? "12": ("" + now.getHours());
 		//trace(isPMTime);
 
-			currentDate = "" + // Blank
-			(now.getMonth() + 1) + "/" + (now.getDay()) + " - " + // MM/DD
-			hourTwelve  + ":" + // Hours
-			padZero("" + now.getMinutes()) + ":" + /*padZero("" + now.getSeconds()) +*/ (if (isPMTime) " PM" else " AM") + // Minutes + Seconds + AMPM
+			currentDate = "" + (now.getMonth() + 1) + "/" + (now.getDay()) + " - " + // MM/DD
+			hourTwelve  + ":" + padZero("" + now.getMinutes()) +  (if (isPMTime) " PM" else " AM") + // Hours + Minutes + AMPM
 			#if debug
 			"\nDebug build ran by " +
 			#end
 			"" + systemUsername;
-			// https://discord.com/channels/162395145352904705/165234904815239168/886052839137378384
-
 
 			statisticsText.text = currentDate;
+			// Seconds for if I get to put an option to add seconds to the menu. /* + ":" padZero("" + now.getSeconds()) +*/
     }
 
     function padZero(s:String):String {
