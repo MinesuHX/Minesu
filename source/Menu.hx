@@ -46,8 +46,9 @@ var nameTitle:String = "Home Mesu";
 var menuSingleButton:FlxSprite; // Thanks https://www.thesaurus.com/browse/individual
 var menuPrimaryButtons:FlxTypedGroup<FlxSprite>;
 
-var menuEntries:Array<String> = ["Home", "Categories", "Customize", "Settings"];
+var menuEntries:Array<String> = ["Home", "Categories", "Settings", "Customize"];
 var menuXPositions:Array<Int> = [103, 273, 443, 613];
+//var animationFrames = [1, 2]; // https://snippets.haxeflixel.com/sprites/animation
 
 var systemBar:FlxSprite;
 
@@ -56,15 +57,19 @@ var systemBar:FlxSprite;
 		super.create();
 		createWallpaper();
 
-		mainText = new FlxText(122, 60, 500); // x, y, width
+		mainText = new FlxText((122 - 6 - 1), (60 - 6), 500); // x, y, width
 		mainText.text = nameTitle;
 		mainText.setFormat(defaultFont, 52, mainColor);
+		mainText.antialiasing = true;
+		mainText.updateHitbox();
 		add(mainText);
 
-		statisticsText = new FlxText(1801, 70, 500); // x, y, width
+		statisticsText = new FlxText((1801), (70 + 3 - 6), 500); // x, y, width
 		statisticsText.text = "____";
 		statisticsText.setFormat(defaultFont, 24, mainColor, RIGHT);
-		statisticsText.x = (1920 - 119) - statisticsText.width; // Should work with custom screen resolutions when the time comes for that.
+		statisticsText.x = (1920 - 119 + 3) - statisticsText.width; // Should work with custom screen resolutions when the time comes for that.
+		statisticsText.antialiasing = true;
+		statisticsText.updateHitbox();
 		add(statisticsText);
 
 		menuPrimaryButtons = new FlxTypedGroup<FlxSprite>();
@@ -87,8 +92,10 @@ var systemBar:FlxSprite;
 
 		for (i in menuEntries){
 			menuSingleButton = new FlxSprite();
-			menuSingleButton.loadGraphic("assets/images/navButtons/" + i + ".png");
+			menuSingleButton.loadGraphic("assets/images/navButtons/" + i + ".png", true, 175, 125);
 			menuSingleButton.y = 133;
+			menuSingleButton.animation.add("idle", [0], 1);
+			menuSingleButton.animation.add("select", [1], 1);
 			menuPrimaryButtons.add(menuSingleButton);
 		}
 
@@ -96,7 +103,8 @@ var systemBar:FlxSprite;
 
 			for(i in 0...menuPrimaryButtons.members.length){
 				menuPrimaryButtons.members[i].x = menuXPositions[i];
-				trace(menuXPositions[i]);
+				//trace(menuXPositions[i]);
+				menuPrimaryButtons.members[i].animation.play("idle"); //For testing.
 			}
 
 		}
@@ -122,8 +130,7 @@ var systemBar:FlxSprite;
 			add(backgroundDots);
 	}
 
-	override public function update(elapsed:Float)
-	{
+	override public function update(elapsed:Float){
 		super.update(elapsed);
 		appGetDate();
 	}
@@ -131,12 +138,16 @@ var systemBar:FlxSprite;
 	function appGetDate(){ // to whoever sees the first commit of this, say thank you to spile from the haxe discord
 		var now = Date.now();
 		var hourTwelve:String;
+		//trace(now.getDay());
 
 		isPMTime = (now.getHours() > 12) ? true: false;
-		hourTwelve = (!isPMTime && (now.getHours() < 1) ) ? "12": ("" + now.getHours());
-		//trace(isPMTime);
+		if (isPMTime){
+			hourTwelve = ("" + (now.getHours() - 12)); // Gets hour of the day and subtracts it by 12 for the proper time in the P.Ms.
+		}else{
+			hourTwelve = ("" + now.getHours());
+		}
 
-			currentDate = "" + (now.getMonth() + 1) + "/" + (now.getDay()) + " - " + // MM/DD
+			currentDate = "" + (now.getMonth() + 1) + "/" + (now.getDate()) + " - " + // MM/DD
 			hourTwelve  + ":" + padZero("" + now.getMinutes()) +  (if (isPMTime) " PM" else " AM") + // Hours + Minutes + AMPM
 			#if debug
 			"\nDebug build ran by " +

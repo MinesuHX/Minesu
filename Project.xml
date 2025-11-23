@@ -22,7 +22,7 @@
 	<window if="html5" resizable="false" /> <!-- I feel the only instance where I would make a web version would be an app that would launch other websites, but then that's what the New Tab page is for.
 
 	<!--Desktop-specific-->
-	<window if="desktop" orientation="landscape" fullscreen="false" resizable="false" />
+	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
 
 	<!--Mobile-specific-->
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" />
