@@ -43,8 +43,8 @@ var menuBody:FlxSprite;
 // Primary Buttons + Subset(?)
 var nameTitle:String = "Home Mesu";
 
-var menuNavButton:FlxSprite;
-var strumLine:FlxTypedGroup<FlxSprite>;
+var menuSingleButton:FlxSprite; // Thanks https://www.thesaurus.com/browse/individual
+var menuPrimaryButtons:FlxTypedGroup<FlxSprite>;
 
 var menuEntries:Array<String> = ["Home", "Categories", "Customize", "Settings"];
 var menuXPositions:Array<Int> = [103, 273, 443, 613];
@@ -67,8 +67,11 @@ var systemBar:FlxSprite;
 		statisticsText.x = (1920 - 119) - statisticsText.width; // Should work with custom screen resolutions when the time comes for that.
 		add(statisticsText);
 
-		strumLine = new FlxTypedGroup<FlxSprite>();
-		add(strumLine);
+		menuPrimaryButtons = new FlxTypedGroup<FlxSprite>();
+		add(menuPrimaryButtons);
+
+		//menuXPositions = new Array<Int>();
+		//add(menuXPositions);
 
 		menuBody = new FlxSprite();
 		menuBody.loadGraphic("assets/images/menuBody/mainMenu/Main Body.png");
@@ -83,18 +86,20 @@ var systemBar:FlxSprite;
 		add(systemBar);
 
 		for (i in menuEntries){
-
-		menuNavButton = new FlxSprite();
-		menuNavButton.loadGraphic("assets/images/navButtons/" + i + ".png");
-			for (k in menuXPositions){
-				menuNavButton.x = k;
-			}
-
-		menuNavButton.y = 133;
-		add(menuNavButton);
+			menuSingleButton = new FlxSprite();
+			menuSingleButton.loadGraphic("assets/images/navButtons/" + i + ".png");
+			menuSingleButton.y = 133;
+			menuPrimaryButtons.add(menuSingleButton);
 		}
 
+		for (i in 0...menuXPositions.length){
 
+			for(i in 0...menuPrimaryButtons.members.length){
+				menuPrimaryButtons.members[i].x = menuXPositions[i];
+				trace(menuXPositions[i]);
+			}
+
+		}
 
 	}
 

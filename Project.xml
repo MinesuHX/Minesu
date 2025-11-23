@@ -4,7 +4,7 @@
 
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Minesu Prototype" file="Minesu" main="Main" version="0.0.1" company="AARECo" />
+	<app title="Minesu (Prototype)" file="Minesu" main="Main" version="0.0.1" company="AARECo" />
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -16,7 +16,7 @@
 	<!-- ____________________________ Window Settings ___________________________ -->
 
 	<!--These window settings apply to all targets-->
-	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" />
+	<window width="1280" height="720" fps="60" background="#0000FF" hardware="true" vsync="false" />
 
 	<!--HTML5-specific-->
 	<window if="html5" resizable="false" /> <!-- I feel the only instance where I would make a web version would be an app that would launch other websites, but then that's what the New Tab page is for.
@@ -42,9 +42,6 @@
 
 	<!--In case you want to use the ui package-->
 	<!--<haxelib name="flixel-ui" />-->
-
-	<!--In case you want to use nape with flixel-->
-	<!--<haxelib name="nape-haxe4" />-->
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
