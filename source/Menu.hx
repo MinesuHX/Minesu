@@ -15,6 +15,9 @@ import Date;
 
 import flixel.group.FlxGroup.FlxTypedGroup;
 
+import PrimaryMenu;
+import flixel.FlxSubState;
+
 
 class Menu extends FlxState
 {
@@ -54,6 +57,8 @@ var systemBar:FlxSprite;
 
 	override public function create()
 	{
+		persistentUpdate = true;
+ 		persistentDraw = true;
 		super.create();
 		createWallpaper();
 
@@ -108,6 +113,12 @@ var systemBar:FlxSprite;
 			}
 
 		}
+
+
+		openSubState(new PrimaryMenu());
+		
+
+
 
 	}
 
