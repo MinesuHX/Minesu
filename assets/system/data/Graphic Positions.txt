@@ -9,6 +9,10 @@ Graphic Positions:
         - Settings: 443, 113
         - Customize: 613, 113
     - Main Body - 103, 271
+    - Body Icons: X and Y values increase by 200.
+        - First: 141, 302
+        - Second: 341, 302
+        To be spawned from left to right.
 
 
 Colors:

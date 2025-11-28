@@ -160,10 +160,12 @@ var systemBar:FlxSprite;
 
 			currentDate = "" + (now.getMonth() + 1) + "/" + (now.getDate()) + " - " + // MM/DD
 			hourTwelve  + ":" + padZero("" + now.getMinutes()) +  (if (isPMTime) " PM" else " AM") + // Hours + Minutes + AMPM
-			#if debug
+			/*#if debug
 			"\nDebug build ran by " +
 			#end
-			"" + systemUsername;
+			"" + systemUsername*/
+			#if debug
+			"\nDebug Build" #end;
 
 			statisticsText.text = currentDate;
 			// Seconds for if I get to put an option to add seconds to the menu. /* + ":" padZero("" + now.getSeconds()) +*/

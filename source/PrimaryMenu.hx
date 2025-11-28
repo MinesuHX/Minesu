@@ -2,16 +2,18 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-//import flixel.FlxState;
 import flixel.FlxSubState;
-import flixel.text.FlxText;
-import flixel.ui.FlxButton;
-import flixel.util.FlxColor;
-import flixel.util.FlxDestroyUtil;
-import flixel.util.FlxSpriteUtil;
+import flixel.group.FlxGroup.FlxTypedGroup;
 
 class PrimaryMenu extends FlxSubState
 {
+
+var horizPositions:Array<Int> = [141, 341, 541, 741, 941, 1141];
+var verticPositions:Array<Int> = [302, 502, 702, 902];
+
+var menuIconBorder:FlxSprite;
+var curMadeSelectionIcons:FlxTypedGroup<FlxSprite>;
+
 	public function new()
 	{
 		super();
@@ -21,19 +23,46 @@ class PrimaryMenu extends FlxSubState
 	{
 		super.create();
 
-		var text = new FlxText();
-		text.text = "I am the OtherState.";
-		text.color = FlxColor.PINK;
-		text.size = 16;
-		text.setBorderStyle(FlxTextBorderStyle.SHADOW, FlxColor.RED, 4);
-		text.screenCenter();
+		curMadeSelectionIcons = new FlxTypedGroup<FlxSprite>();
+		add (curMadeSelectionIcons);
 
-		var button = new FlxButton(0, 0, "Close SubState", closeSub);
-		button.screenCenter();
-		button.y = text.y + text.height + 16;
+		for (h in 0...verticPositions.length){
+			for (i in 0...horizPositions.length){
+				menuIconBorder = new FlxSprite();
+				menuIconBorder.loadGraphic("assets/images/menuBody/mainMenu/Icon Borders.png", true, 170, 170);
+				menuIconBorder.animation.add("idle", [0], 1);
+				menuIconBorder.animation.add("select", [1], 1);
+				menuIconBorder.animation.play("idle");
+				menuIconBorder.x = horizPositions[i];
+				menuIconBorder.y = verticPositions[h];
+				menuIconBorder.updateHitbox();
+				//menuIconBorder.screenCenter();
+				curMadeSelectionIcons.add(menuIconBorder);
+			}
+		}
 
-		add(text);
-		add(button);
+	}
+
+	override function update(elapsed:Float){
+
+		super.update(elapsed);
+
+		for (h in 0...curMadeSelectionIcons.members.length){
+			if (FlxG.mouse.overlaps(curMadeSelectionIcons.members[h]))
+				curMadeSelectionIcons.members[h].animation.play("select");
+			else
+				curMadeSelectionIcons.members[h].animation.play("idle");
+		}
+
+		for (i in 0...curMadeSelectionIcons.members.length){
+			if (FlxG.mouse.overlaps(curMadeSelectionIcons.members[i]))
+				curMadeSelectionIcons.members[i].animation.play("select");
+			else
+				curMadeSelectionIcons.members[i].animation.play("idle");
+		}
+
+
+
 	}
 
 	private function closeSub():Void
