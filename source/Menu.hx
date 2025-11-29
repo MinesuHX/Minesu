@@ -15,7 +15,7 @@ import Date;
 
 import flixel.group.FlxGroup.FlxTypedGroup;
 
-import PrimaryMenu;
+import smallMenus.*;
 import flixel.FlxSubState;
 
 
@@ -90,6 +90,12 @@ var systemBar:FlxSprite;
 		menuBody.color = 0xFFFFFFFF;
 		add(menuBody);
 
+
+
+		openSubState(new HomeMesu());
+
+
+
 		systemBar = new FlxSprite();
 		systemBar.loadGraphic("assets/images/bottomBar/bar.png");
 		systemBar.y = FlxG.height - systemBar.height;
@@ -113,10 +119,6 @@ var systemBar:FlxSprite;
 			}
 
 		}
-
-
-		openSubState(new PrimaryMenu());
-		
 
 
 

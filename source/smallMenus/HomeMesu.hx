@@ -1,11 +1,11 @@
-package;
+package smallMenus;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
-class PrimaryMenu extends FlxSubState
+class HomeMesu extends FlxSubState
 {
 
 var horizPositions:Array<Int> = [141, 341, 541, 741, 941, 1141];
@@ -36,7 +36,6 @@ var curMadeSelectionIcons:FlxTypedGroup<FlxSprite>;
 				menuIconBorder.x = horizPositions[i];
 				menuIconBorder.y = verticPositions[h];
 				menuIconBorder.updateHitbox();
-				//menuIconBorder.screenCenter();
 				curMadeSelectionIcons.add(menuIconBorder);
 			}
 		}
