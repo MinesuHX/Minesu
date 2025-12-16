@@ -101,6 +101,8 @@ var systemBar:FlxSprite;
 		systemBar.y = FlxG.height - systemBar.height;
 		add(systemBar);
 
+
+
 		for (i in menuEntries){
 			menuSingleButton = new FlxSprite();
 			menuSingleButton.loadGraphic("assets/images/navButtons/" + i + ".png", true, 175, 125);

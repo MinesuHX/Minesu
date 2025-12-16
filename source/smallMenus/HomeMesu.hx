@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import smallMenus.MenuIcon;
 
 class HomeMesu extends FlxSubState
 {
@@ -26,7 +27,7 @@ var curMadeSelectionIcons:FlxTypedGroup<FlxSprite>;
 		curMadeSelectionIcons = new FlxTypedGroup<FlxSprite>();
 		add (curMadeSelectionIcons);
 
-		for (h in 0...verticPositions.length){
+		/*for (h in 0...verticPositions.length){
 			for (i in 0...horizPositions.length){
 				menuIconBorder = new FlxSprite();
 				menuIconBorder.loadGraphic("assets/images/menuBody/mainMenu/Icon Borders.png", true, 170, 170);
@@ -38,7 +39,12 @@ var curMadeSelectionIcons:FlxTypedGroup<FlxSprite>;
 				menuIconBorder.updateHitbox();
 				curMadeSelectionIcons.add(menuIconBorder);
 			}
-		}
+		}*/
+
+		var testPoop:MenuIcon;
+		testPoop = new MenuIcon(verticPositions[0], horizPositions[0], "exampleIcon1");
+		//testPoop = new MenuIcon(20, 45, "exampleIcon1");
+		add(testPoop);
 
 	}
 
