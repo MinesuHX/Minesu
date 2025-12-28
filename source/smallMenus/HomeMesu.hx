@@ -16,6 +16,8 @@ var verticPositions:Array<Int> = [302, 502, 702, 902];
 var menuIconBorder:FlxSprite;
 var curMadeSelectionIcons:FlxTypedGroup<MenuIcon>; // These both have to be changed, whoops!
 
+var homeLayout = haxe.Json.parse(sys.io.File.getContent('external/games/home_layout.json'));
+
 	public function new()
 	{
 		super();
@@ -40,20 +42,22 @@ var curMadeSelectionIcons:FlxTypedGroup<MenuIcon>; // These both have to be chan
 				menuIconBorder.updateHitbox();*/
 
 				var testPoop:MenuIcon;
-				testPoop = new MenuIcon(horizPositions[i], verticPositions[h], "exampleIcon1");
-				//testPoop = new MenuIcon(20, 45, "exampleIcon1");
-				//testPoop.updateHitbox();
-				add(testPoop);
+				//testPoop = new MenuIcon(horizPositions[i], verticPositions[h], "exampleIcon1");
+				// vPos aligns with 0, 1, 2, and 3.
+				// hPos aligns with the arrays.
+
+				switch (verticPositions.indexOf(h)){
+					case 0: trace("zero");
+				}
+
+
+				testPoop = new MenuIcon(horizPositions[i], verticPositions[h], "smb1r"); // Replace with something in the homeLayout JSON somehow.
+				//add(testPoop);
 
 				curMadeSelectionIcons.add(testPoop);
+				//trace("Entry: " + horizPositions[i] + ", " + verticPositions[h] + ".");
 			}
 		}
-
-		/*var testPoop:MenuIcon;
-		testPoop = new MenuIcon(verticPositions[0], horizPositions[0], "exampleIcon1");
-		//testPoop = new MenuIcon(20, 45, "exampleIcon1");
-		add(testPoop);*/
-
 	}
 
 	override function update(elapsed:Float){

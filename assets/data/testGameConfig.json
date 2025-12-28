@@ -1,0 +1,13 @@
+{
+"name": "Example Name",
+"shortName": "Example",
+"catchDescription": "A cool description!",
+"description": "Potentially for bottom.",
+
+"type": "malleable",
+"directory": "C://none",
+"arguments": null,
+
+"icon": "defaultIcon"
+
+}

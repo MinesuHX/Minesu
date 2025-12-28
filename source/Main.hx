@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxGame;
 import openfl.display.Sprite;
+import flixel.FlxG;
 
 class Main extends Sprite
 {
@@ -9,5 +10,6 @@ class Main extends Sprite
 	{
 		super();
 		addChild(new FlxGame(1920, 1080, Menu));
+		FlxG.mouse.load('assets/images/cursor.png');
 	}
 }

@@ -19,45 +19,43 @@ public var icon:FlxSprite;
 
 var iconGraphic:String;
 var selected:Bool;
+var gameConfig = haxe.Json.parse(sys.io.File.getContent('assets/data/testGameConfig.json'));
 
-    public function new(x:Int, y:Int, iconGraphic:String){
-
+    public function new(x:Int, y:Int, iconGraphic:String){ // iconGraphic will just be JSON loading, lol.
 			super(x, y);
 
-            border = new FlxSprite();
+			gameConfig = haxe.Json.parse(sys.io.File.getContent('external/games/config/' + iconGraphic + '.json'));
+
+			border = new FlxSprite();
 			border.loadGraphic("assets/images/menuBody/mainMenu/Icon Borders.png", true, 170, 170);
-			//border.y = y;
-			//border.x = x;
 			border.animation.add("idle", [0], 1);
 			border.animation.add("select", [1], 1);
 			border.updateHitbox();
-			add(border);
+				add(border);
 
 			iconMask = new FlxSprite();
 			iconMask.loadGraphic("assets/images/menuBody/mainMenu/Icon Filling.png");
 			iconMask.y = y;
 			iconMask.x = x;
 			iconMask.updateHitbox();
-			//add(iconMask);
 
 			iconToBeClipped = new FlxSprite();
-			//iconToBeClipped.loadGraphic("assets/images/menuBody/mainMenu/exampleIcon1.png", true, 175, 125);
-			iconToBeClipped.loadGraphic("assets/images/menuBody/mainMenu/" + iconGraphic + ".png");
+			iconToBeClipped.loadGraphic("assets/images/menuBody/mainMenu/default.png"); // Default.
+
+			if (gameConfig.icon != null)
+				iconToBeClipped.loadGraphic("external/games/icons/" + gameConfig.icon + ".png");
+			else
+				iconToBeClipped.loadGraphic("external/games/icons/" + iconGraphic + ".png");
+
 			iconToBeClipped.updateHitbox();
-			//iconToBeClipped.y = y;
-			//iconToBeClipped.x = x;
-			//iconToBeClipped.pixels.copyPixels(iconMask.pixels, null, null, iconMask.pixels, null, true);
-			//add(iconToBeClipped);
+			iconToBeClipped.y = y;
+			iconToBeClipped.x = x;
+
 
 			icon = new FlxSprite();
-			//icon.loadGraphic("assets/images/menuBody/mainMenu/exampleIcon1.png", true, 175, 125);
-			//icon.loadGraphic("assets/images/menuBody/mainMenu/" + iconGraphic + ".png");
-			//icon.y = y;
-			//icon.x = x;
-			//icon.pixels.copyPixels(iconMask.pixels, null, null, iconMask.pixels, null, true);
 			FlxSpriteUtil.alphaMaskFlxSprite(iconToBeClipped, iconMask, icon); // Seems the image I wanted to mask needed to go before what needed to be masked. Maybe it was in an update? I do not know.
 			icon.updateHitbox();
-			add(icon);
+				add(icon);
 
     }
 
