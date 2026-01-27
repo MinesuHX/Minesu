@@ -24,33 +24,36 @@ var gameConfig = haxe.Json.parse(sys.io.File.getContent('assets/data/testGameCon
     public function new(x:Int, y:Int, iconGraphic:String){ // iconGraphic will just be JSON loading, lol.
 			super(x, y);
 
-			gameConfig = haxe.Json.parse(sys.io.File.getContent('external/games/config/' + iconGraphic + '.json'));
+			if (iconGraphic != null){
+						gameConfig = haxe.Json.parse(sys.io.File.getContent('external/games/config/' + iconGraphic + '.json'));
 
-			border = new FlxSprite();
-			border.loadGraphic("assets/images/menuBody/mainMenu/Icon Borders.png", true, 170, 170);
-			border.animation.add("idle", [0], 1);
-			border.animation.add("select", [1], 1);
-			border.updateHitbox();
-				add(border);
+						border = new FlxSprite();
+						border.loadGraphic("assets/images/menuBody/mainMenu/Icon Borders.png", true, 170, 170);
+						border.animation.add("idle", [0], 1);
+						border.animation.add("select", [1], 1);
+						border.updateHitbox();
+							add(border);
 
-			iconMask = new FlxSprite();
-			iconMask.loadGraphic("assets/images/menuBody/mainMenu/Icon Filling.png");
-			iconMask.y = y;
-			iconMask.x = x;
-			iconMask.updateHitbox();
+						iconMask = new FlxSprite();
+						iconMask.loadGraphic("assets/images/menuBody/mainMenu/Icon Filling.png");
+						iconMask.y = y;
+						iconMask.x = x;
+						iconMask.updateHitbox();
 
-			iconToBeClipped = new FlxSprite();
-			iconToBeClipped.loadGraphic("assets/images/menuBody/mainMenu/default.png"); // Default.
+						iconToBeClipped = new FlxSprite();
+						iconToBeClipped.loadGraphic("assets/images/menuBody/mainMenu/default.png"); // Default.
 
-			if (gameConfig.icon != null)
-				iconToBeClipped.loadGraphic("external/games/icons/" + gameConfig.icon + ".png");
-			else
-				iconToBeClipped.loadGraphic("external/games/icons/" + iconGraphic + ".png");
+						if (gameConfig.icon != null)
+							iconToBeClipped.loadGraphic("external/games/icons/" + gameConfig.icon + ".png");
+						else
+							iconToBeClipped.loadGraphic("external/games/icons/" + iconGraphic + ".png");
 
-			iconToBeClipped.updateHitbox();
-			iconToBeClipped.y = y;
-			iconToBeClipped.x = x;
-
+						iconToBeClipped.updateHitbox();
+						iconToBeClipped.y = y;
+						iconToBeClipped.x = x;
+			}else{
+			trace("Expected: " + iconGraphic + "at XY:" + x + "," + y);
+			}
 
 			icon = new FlxSprite();
 			FlxSpriteUtil.alphaMaskFlxSprite(iconToBeClipped, iconMask, icon); // Seems the image I wanted to mask needed to go before what needed to be masked. Maybe it was in an update? I do not know.

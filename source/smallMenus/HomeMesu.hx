@@ -13,7 +13,7 @@ class HomeMesu extends FlxSubState
 var horizPositions:Array<Int> = [141, 341, 541, 741, 941, 1141];
 var verticPositions:Array<Int> = [302, 502, 702, 902];
 
-var menuIconBorder:FlxSprite;
+var iconSlot:FlxSprite;
 var curMadeSelectionIcons:FlxTypedGroup<MenuIcon>; // These both have to be changed, whoops!
 
 var homeLayout = haxe.Json.parse(sys.io.File.getContent('external/games/home_layout.json'));
@@ -27,8 +27,20 @@ var homeLayout = haxe.Json.parse(sys.io.File.getContent('external/games/home_lay
 	{
 		super.create();
 
+		//var placement:Array<String> = haxe.Json.parse(homeLayout.arrangement);
+
+		var deg:FlxText;
+				deg = new FlxText((122), (156), 500); // x, y, width
+				deg.text = "String:" + haxe.Json.stringify(homeLayout.arrangement); // Very convinient...
+				//deg.text = "Extra Placeholder";
+				//trace("Arrangement: " + haxe.Json.stringify(homeLayout.arrangement));
+				//trace("Note: " + homeLayout.note);
+				deg.setFormat("FOT-RodinBokutohPro-B.otf", 52, 0xff403a46);
+				deg.antialiasing = true;
+				deg.updateHitbox();
+				add(deg);
+
 		curMadeSelectionIcons = new FlxTypedGroup<MenuIcon>();
-		add (curMadeSelectionIcons);
 
 		for (h in 0...verticPositions.length){
 			for (i in 0...horizPositions.length){
@@ -40,21 +52,23 @@ var homeLayout = haxe.Json.parse(sys.io.File.getContent('external/games/home_lay
 				menuIconBorder.x = horizPositions[i];
 				menuIconBorder.y = verticPositions[h];
 				menuIconBorder.updateHitbox();*/
+				iconSlot = new FlxSprite();
+				iconSlot.loadGraphic("assets/images/menuBody/mainMenu/Icon Filling.png");
+				iconSlot.x = horizPositions[i];
+				iconSlot.y = verticPositions[h];
+				iconSlot.updateHitbox();
+				add(iconSlot);
 
 				var testPoop:MenuIcon;
-				//testPoop = new MenuIcon(horizPositions[i], verticPositions[h], "exampleIcon1");
-				// vPos aligns with 0, 1, 2, and 3.
-				// hPos aligns with the arrays.
-
-				switch (verticPositions.indexOf(h)){
-					case 0: trace("zero");
-				}
-
+				//testPoop = new MenuIcon(horizPositions[i], verticPositions[h], "exampleIcon1"); // vPos aligns with 0, 1, 2, and 3. // hPos aligns with the arrays.
+				// user slameron suggested the idea of reading from an array and then moving based on division and stuff
+					// so in theory i could turn the home_layout.json file into maybe some kinda global storage/options file too
 
 				testPoop = new MenuIcon(horizPositions[i], verticPositions[h], "smb1r"); // Replace with something in the homeLayout JSON somehow.
 				//add(testPoop);
 
 				curMadeSelectionIcons.add(testPoop);
+				add (curMadeSelectionIcons);
 				//trace("Entry: " + horizPositions[i] + ", " + verticPositions[h] + ".");
 			}
 		}
