@@ -1,12 +1,14 @@
 # Minesu
 > A miniature scaled launcher for your PC! :ram:
  
-![banner](https://repository-images.githubusercontent.com/1091421881/5d2a56b5-2b0d-42df-9bfb-6f7f1e195d1e "Minesu Banner")
+![banner](https://repository-images.githubusercontent.com/1091421881/78b45a9c-85b9-45bc-a392-ec46bb618ecb "Minesu Banner")
 
 (WIP description.)
 
 ## Disclaimer
 This is my first attempt at this type of launcher software stuff. It isn't meant to be full-featured, so some features may not be included. In addition, this is primarily focused for desktop, so an Android version *will not* be made.
+
+Additional notice, no artificial intelligence was used during the process of making this software. Pull requests made with AI will be rejected, as this is also a software that I've done to test my skills and to see what I can learn, and AI doing that is kind of stupid to me.
 
 ## System Requirements
 ### Minimum Specs
