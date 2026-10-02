@@ -32,6 +32,12 @@ var layout_yPosition_Before_Recount:Int = 0; // I think I'll use this simialry o
 	{
 		super.create();
 
+		// Old body folder position: 143, 288
+		// New body folder position: 112, 326
+		// Estimated Difference: back 31, down 38, not 162
+		// Reasoning: Aligns with the Windows 8.1 start screen (2nd row for the 1st row of these icons.)
+		// Notice: the icons will use a temporary method of aligning them to the new positions. Please replace asap!
+
 		//menuArrange:new(string);
 		menuArrange = homeLayout.arrangement;
 		columns = horizPositions.length;
@@ -57,31 +63,20 @@ var layout_yPosition_Before_Recount:Int = 0; // I think I'll use this simialry o
 
 			makeBlankSpaces();
 
-		//var menuArrange.length;
 				for (i in 0...menuArrange.length){
-
-					//if (menuArrange)
 
 					var testPoop:MenuIcon;
 					var xPos:Int;
 					var yPos:Int;
 					var currentIndex:Int;
 					currentIndex = menuArrange.indexOf(menuArrange[i]);
-					// COME UP WITH NEW MATH ASAP!!! AAAAAAH!!!
-
-					/*xPos = horizPositions[ 0 - Std.int(rows  /  currentIndex) )  ];
-					yPos = verticPositions[ 0 - Std.int(columns / currentIndex))       ]; */ // Old math.
-
-					// Reference math:
-						// spr.x += 180 * ((grpOptions.members.length % MAX_PER_ROW) - MAX_PER_ROW/2) + spr.width / 2 + 15;
 
 					xPos = horizPositions[Std.int(currentIndex % columns) ];
 					//yPos = verticPositions[ 0 - Std.int(columns / currentIndex))]; // Old yPos Math.s
 					yPos = verticPositions[ Math.floor(currentIndex / columns)  ];
 
-					testPoop = new MenuIcon( xPos, yPos,	menuArrange[i]);
+					testPoop = new MenuIcon( xPos - 31, yPos + 38,	menuArrange[i]);
 					trace("Old Trace -- Index: " + currentIndex + ", X: " + xPos + ", Y: " + yPos);
-					//trace("New Trace -- Columns: " + columns + ", Index: " + currentIndex) + ", Division (index percentage columns): " + ( (currentIndex) % columns)  ) + ", Placement in horizPositions " + xPos + ". \n");
 					curMadeSelectionIcons.add(testPoop);
 				}
 

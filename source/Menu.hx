@@ -122,6 +122,15 @@ var changeValue:Int; // for one function just so i can reference it omg
 		menuBody.color = 0xFFFFFFFF;
 		add(menuBody);
 
+		// shape is 17+ x than generated image
+		// shape is 75% opacity
+		// shape goes to -133
+		// graphic is 170.7% width
+		timer.start(0,
+		(_) -> {	FlxTween.tween(menuBody, {alpha: 0.75, x:(-133 - 17 + (FlxG.width / 4)), "scale.x": 1.707}, 1, // Using FlxG.width was a LIFESAVER.
+			{type: FlxTweenType.ONESHOT, ease: FlxEase.cubeOut});}
+		);
+
 				tsp = new FlxText((FlxG.width - 1000), 156, 500); // x, y, width
 				tsp.text = "Place: None";
 				tsp.setFormat("FOT-RodinBokutohPro-B.otf", 25, 0xff403a46);
@@ -267,6 +276,14 @@ var changeValue:Int; // for one function just so i can reference it omg
 						menuTab -= 4;
 
 					pageSwitch(0, true);
+				}
+
+				if (canSwitchTabs)
+				{
+					switch (menuTab){
+						case 0: openSubState(new HomeMesu());
+						case 2: openSubState(new SettingsArea());
+					}
 				}
 
 	}
