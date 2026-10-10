@@ -1,13 +1,14 @@
 {
 "name": "Example Name",
 "shortName": "Example",
-"catchDescription": "A cool description!",
-"description": "Potentially for bottom.",
+"description": "For main side body text.",
+"icon": "defaultIcon",
+
+"developer":"Dev",
+"publisher":"Publisher",
+"release":"M dd, yy",
 
 "type": "malleable",
 "directory": "C://none",
-"arguments": null,
-
-"icon": "defaultIcon"
-
+"arguments": null
 }

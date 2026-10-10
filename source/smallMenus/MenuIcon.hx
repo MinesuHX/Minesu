@@ -19,7 +19,8 @@ public var icon:FlxSprite;
 
 var iconGraphic:String;
 var selected:Bool;
-var gameConfig = haxe.Json.parse(sys.io.File.getContent('assets/data/testGameConfig.json'));
+/*var gameConfig = haxe.Json.parse(sys.io.File.getContent('assets/data/testGameConfig.json'));*/
+var gameConfig = haxe.Json.parse("{}");
 
     public function new(x:Int, y:Int, iconGraphic:String){ // iconGraphic will just be JSON loading, lol.
 			super(x, y);

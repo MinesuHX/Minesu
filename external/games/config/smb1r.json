@@ -1,20 +1,14 @@
 {
 "name": "Super Mario Bros. Remastered",
 "shortName": "SMB1R",
+"description": "A Remake & Celebration of the original 'Super Mario Bros.' games. with a lot of new content!!",
 "icon": "smb1r",
 
-"description": "A Remake / Celebration of the original 'Super Mario Bros.' games. Features new levels, custom modes, new characters, alongside a full level editor / custom level system!",
-
-"developer":"JoeMama. These three variables might get moved somewhere else if it's detected that the text is too long, as is above.",
+"developer":"JoeMama.",
 "publisher":"GitHub",
-"release": "Month, DD, YYYY.",
+"release": "Month DD, YYYY.",
 
 "type": "executable",
 "directory": "C://loremipsum",
-"arguments": null,
-
-
-
-"alternative":"SMB. Remasterered. Variable likely to be unused.",
-"catchDescription": "A Remake / Celebration of the original 'Super Mario Bros.' games. Variable likely to be removed."
+"arguments": null
 }

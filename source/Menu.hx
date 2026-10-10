@@ -68,7 +68,6 @@ var changeValue:Int; // for one function just so i can reference it omg
 		super.create();
 		createWallpaper();
 		lime.app.Application.current.window.opacity = 0;
-		backgroundHome.alpha = 1;
 		FlxTween.tween(lime.app.Application.current.window, {opacity: 1}, 0.5, {type: FlxTweenType.ONESHOT, ease: FlxEase.cubeOut});
 
 		// Modified from https://discord.com/channels/162395145352904705/165234904815239168/950650164295651358 while trying to look for an example of tweening an integer which I thought I needed but realized I could've used this.
@@ -126,6 +125,7 @@ var changeValue:Int; // for one function just so i can reference it omg
 		// shape is 75% opacity
 		// shape goes to -133
 		// graphic is 170.7% width
+		var timer:FlxTimer = new FlxTimer();
 		timer.start(0,
 		(_) -> {	FlxTween.tween(menuBody, {alpha: 0.75, x:(-133 - 17 + (FlxG.width / 4)), "scale.x": 1.707}, 1, // Using FlxG.width was a LIFESAVER.
 			{type: FlxTweenType.ONESHOT, ease: FlxEase.cubeOut});}
@@ -141,11 +141,7 @@ var changeValue:Int; // for one function just so i can reference it omg
 		//openSubState(new HomeMesu());
 
 
-
-		systemBar = new FlxSprite();
-		systemBar.loadGraphic("assets/images/bottomBar/bar.png");
-		systemBar.y = FlxG.height - systemBar.height;
-		//add(systemBar);
+		// {x:staTextNeed, alpha: 1}
 
 
 
@@ -168,6 +164,32 @@ var changeValue:Int; // for one function just so i can reference it omg
 
 		}
 		pageSwitch(0, false);
+		/*systemBar = new FlxSprite();
+		systemBar.loadGraphic("assets/images/bottomBar/bar.png");
+		systemBar.y = FlxG.height - systemBar.height;
+		//add(systemBar);*/
+		systemBar = new FlxSprite();
+		systemBar.loadGraphic("assets/images/bottom_bar.png");
+		systemBar.scale.x = FlxG.width; // (This is good since the bar is a one pixel wide graphic.)
+		systemBar.antialiasing = false;
+		systemBar.updateHitbox();
+		systemBar.screenCenter(X);
+		systemBar.y = FlxG.height;
+		add(systemBar);
+		// Do the tween when the systemBar is "summoned"/needed, say for when a game is selected and whatnot.
+
+		// Summon
+		//var timer:FlxTimer = new FlxTimer();
+		//timer.start(0,
+		//(_) ->
+		FlxTween.tween(systemBar, { y: (FlxG.height  - systemBar.height) }, 1, {
+				type: FlxTweenType.ONESHOT,
+				ease: FlxEase.cubeOut
+				//onComplete: {trace(systemBar.y)}
+		});
+				systemBar.updateHitbox();
+
+		//);
 
 
 
@@ -177,7 +199,7 @@ var changeValue:Int; // for one function just so i can reference it omg
 			backgroundHome = new FlxSprite();
 			backgroundHome.loadGraphic("assets/images/backgrounds/Home_Light.png");
 			backgroundHome.screenCenter();
-			backgroundHome.alpha = 0.01;
+			backgroundHome.alpha = 1; // Switched to be fully opaque as in removal of a feature that didn't look good..
 			add(backgroundHome);
 
 			backgroundSetting = new FlxSprite();
@@ -196,6 +218,8 @@ var changeValue:Int; // for one function just so i can reference it omg
 			mainText.text = menuEntries[menuTab];
 		else
 			mainText.text = nameTitle;
+
+					trace(systemBar.y);
 
 
 
@@ -220,42 +244,6 @@ var changeValue:Int; // for one function just so i can reference it omg
 	}
 
 
-	/*function pageSwitch(changeValue:Int){
-				canSwitchTabs = false;
-				trace(menuEntries[menuTab]);
-
-				//if (changeValue == null){changeValue = 1;}
-				//menuTab += changeValue;
-				trace("Changed value by:" + changeValue + ". Value now: " + menuTab);
-
-				//if (menuTab > -1 || menuTab < 4){
-				if (menuTab > -1 && menuTab < 4){ // Checks if it's inbetween -1 & +4.
-					menuPrimaryButtons.members[menuTab].animation.play("select");
-					trace("true");
-
-
-					menuTab += changeValue;
-					trace("Changed value successfully!");
-					var timer:FlxTimer = new FlxTimer();
-							timer.start(0.1, // For a small delay.
-							(_) -> {
-								canSwitchTabs = true;
-
-								}
-							);
-
-				}
-
-
-				if (menuTab == 0){ // Will be replaced with a case switch soon.
-							openSubState(new HomeMesu());
-							//tsp.text = "Place: HomeMesu.hx (" + menuEntries[menuTab] + ")";
-				}
-				if (menuTab == 2){ // Will be replaced with a case switch soon.
-							openSubState(new SettingsArea());
-				}
-
-	}*/
 	function pageSwitch(changeValue:Int, funcReload:Bool = false){ // funcReload does not do anything other than serving as an identifier as to if the function reran itself.
 	menuPrimaryButtons.members[menuTab].animation.play("idle");
 	tsp.text = "Current Tab: " + menuTab + ", Intended Tab: " + menuEntries[menuTab] ;
