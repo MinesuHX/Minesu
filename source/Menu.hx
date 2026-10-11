@@ -55,6 +55,9 @@ var menuXPositions:Array<Int> = [103, 273, 443, 613];
 //var animationFrames = [1, 2]; // https://snippets.haxeflixel.com/sprites/animation
 
 var systemBar:FlxSprite;
+var barText:FlxText;
+var defaultBarText:String = "Use your inputs to traverse! (WIP)";
+var currentBarText:String;
 
 var tsp:FlxText; // Status text. Temporary.
 var canSwitchTabs:Bool = true;
@@ -69,6 +72,7 @@ var changeValue:Int; // for one function just so i can reference it omg
 		createWallpaper();
 		lime.app.Application.current.window.opacity = 0;
 		FlxTween.tween(lime.app.Application.current.window, {opacity: 1}, 0.5, {type: FlxTweenType.ONESHOT, ease: FlxEase.cubeOut});
+		currentBarText = defaultBarText;
 
 		// Modified from https://discord.com/channels/162395145352904705/165234904815239168/950650164295651358 while trying to look for an example of tweening an integer which I thought I needed but realized I could've used this.
 		/*#else
@@ -140,6 +144,42 @@ var changeValue:Int; // for one function just so i can reference it omg
 
 		//openSubState(new HomeMesu());
 
+		/*systemBar = new FlxSprite();
+				systemBar.loadGraphic("assets/images/bottomBar/bar.png");
+				systemBar.y = FlxG.height - systemBar.height;
+				//add(systemBar);*/
+				systemBar = new FlxSprite();
+				systemBar.loadGraphic("assets/images/bottom_bar.png");
+				systemBar.scale.x = FlxG.width; // (This is good since the bar is a one pixel wide graphic.)
+				systemBar.antialiasing = false;
+				systemBar.updateHitbox();
+				systemBar.screenCenter(X);
+				systemBar.y = FlxG.height;
+				add(systemBar);
+				// Do the tween when the systemBar is "summoned"/needed, say for when a game is selected and whatnot.
+
+				// Summon
+				//var timer:FlxTimer = new FlxTimer();
+				//timer.start(0,
+				//(_) ->
+				FlxTween.tween(systemBar, { y: (FlxG.height  - systemBar.height) }, 1, {
+						type: FlxTweenType.ONESHOT,
+						ease: FlxEase.cubeOut
+						//onComplete: {trace(systemBar.y)}
+				});
+						systemBar.updateHitbox();
+
+				//);
+
+				barText = new FlxText(564, 1034, FlxG.width - 50); // x, y, width, replace Y-axis with a value based off of the distance in height.
+				barText.text = nameTitle;
+				barText.setFormat(defaultFont, 24, mainColor);
+				barText.screenCenter(X);
+				barText.antialiasing = true;
+				barText.alignment = CENTER;
+				barText.updateHitbox();
+				add(barText);
+				barText.text = defaultBarText;
 
 		// {x:staTextNeed, alpha: 1}
 
@@ -164,32 +204,7 @@ var changeValue:Int; // for one function just so i can reference it omg
 
 		}
 		pageSwitch(0, false);
-		/*systemBar = new FlxSprite();
-		systemBar.loadGraphic("assets/images/bottomBar/bar.png");
-		systemBar.y = FlxG.height - systemBar.height;
-		//add(systemBar);*/
-		systemBar = new FlxSprite();
-		systemBar.loadGraphic("assets/images/bottom_bar.png");
-		systemBar.scale.x = FlxG.width; // (This is good since the bar is a one pixel wide graphic.)
-		systemBar.antialiasing = false;
-		systemBar.updateHitbox();
-		systemBar.screenCenter(X);
-		systemBar.y = FlxG.height;
-		add(systemBar);
-		// Do the tween when the systemBar is "summoned"/needed, say for when a game is selected and whatnot.
 
-		// Summon
-		//var timer:FlxTimer = new FlxTimer();
-		//timer.start(0,
-		//(_) ->
-		FlxTween.tween(systemBar, { y: (FlxG.height  - systemBar.height) }, 1, {
-				type: FlxTweenType.ONESHOT,
-				ease: FlxEase.cubeOut
-				//onComplete: {trace(systemBar.y)}
-		});
-				systemBar.updateHitbox();
-
-		//);
 
 
 
@@ -219,7 +234,7 @@ var changeValue:Int; // for one function just so i can reference it omg
 		else
 			mainText.text = nameTitle;
 
-					trace(systemBar.y);
+					//trace(systemBar.y);
 
 
 
