@@ -270,7 +270,7 @@ var changeValue:Int; // for one function just so i can reference it omg
 				{
 					switch (menuTab){
 						case 0: openSubState(new HomeMesu());
-						case 1: FlxSubState.HomeMenu.closeSub();
+						//case 1: //HomeMesu.closeSub();
 						case 2: openSubState(new SettingsArea());
 					}
 				}

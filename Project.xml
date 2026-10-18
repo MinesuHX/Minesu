@@ -42,7 +42,6 @@
 	<!-- _______________________________ Libraries ______________________________ -->
 
 	<haxelib name="flixel" />
-	<haxelib name="hxdiscord_rpc" optional="true" if="sys"/>
 	<haxelib name="haxeui-core"/>
 	<haxelib name="haxeui-flixel"/> <!-- Options menu stuff, might also be used for when creating things. -->
 
