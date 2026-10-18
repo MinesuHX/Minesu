@@ -12,10 +12,10 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 
 class MenuIcon extends FlxSpriteGroup{
-// Reference A: https://github.com/FunkinCrew/Funkin/blob/main/source/funkin/ui/freeplay/SongMenuItem.hx
-	// Heavy reference as I've not worked with FlxSpriteGroups before and I just didn't want to get any example code up.
-// Reference B: https://coinflipstudios.com/devblog/?p=421
-	// Clipping code. Google AI (top of searches) seemed to basically regurgitate it lol. Note: I didn't use what Google regurgitated, I went straight to the source.
+	// Reference A: https://github.com/FunkinCrew/Funkin/blob/main/source/funkin/ui/freeplay/SongMenuItem.hx
+		// Heavy reference as I've not worked with FlxSpriteGroups before and I just didn't want to get any example code up.
+	// Reference B: https://coinflipstudios.com/devblog/?p=421
+		// Clipping code. Google AI (top of searches) seemed to basically regurgitate it lol. Note: I didn't use what Google regurgitated, I went straight to the source. B)
 public var border:FlxSprite;
 public var iconMask:FlxSprite;
 public var iconToBeClipped:FlxSprite;
@@ -28,7 +28,6 @@ var type:Int; // For the animate function.
 var isVisible:Bool; // Is meant to determine if the icon is visible.
 var currentStatus:String; // Like the prior variable, but more advanced.
 
-/*var gameConfig = haxe.Json.parse(sys.io.File.getContent('assets/data/testGameConfig.json'));*/
 var gameConfig = haxe.Json.parse("{}");
 
     public function new(x:Int, y:Int, iconGraphic:String){ // iconGraphic will just be JSON loading, lol.
@@ -67,7 +66,7 @@ var gameConfig = haxe.Json.parse("{}");
 
 
 			icon = new FlxSprite();
-			FlxSpriteUtil.alphaMaskFlxSprite(iconToBeClipped, iconMask, icon); // Seems the image I wanted to mask needed to go before what needed to be masked. Maybe it was in an update? I do not know.
+			FlxSpriteUtil.alphaMaskFlxSprite(iconToBeClipped, iconMask, icon); // Seems the image I wanted to mask needed to go before what needed to be masked. Maybe it was in an update? I do not know. Confusing crap.
 			icon.updateHitbox();
 			icon.alpha = 0.01;
 			add(icon);
