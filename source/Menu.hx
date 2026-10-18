@@ -1,10 +1,9 @@
 package;
 
-import flixel.FlxG;
-import flixel.FlxSprite;
+// FlxG and FlxSprite are in import.hx
 import flixel.FlxState;
 
-import flixel.text.FlxText;
+// FlxText has been in import.hx
 import Sys; // For name detection.
 import Date; // For the date
 import DateTools;
@@ -14,11 +13,7 @@ import flixel.group.FlxGroup.FlxTypedGroup; // For menu buttons.
 import smallMenus.*;
 import flixel.FlxSubState;
 
-/* For animations. */
-import flixel.tweens.FlxTween; // this should be it.
-import flixel.tweens.FlxEase;
-// https://haxeflixel.com/demos/FlxTween/ Worth it.
-import flixel.util.FlxTimer;
+// FlxTween and FlxTimer have been moved to import.hx
 
 class Menu extends FlxState
 {
@@ -51,7 +46,6 @@ class Menu extends FlxState
 		var menuXPositions:Array<Int> = [103, 273, 443, 613]; // All have a difference of 170. Keep that in mind.
 		//var animationFrames = [1, 2]; // https://snippets.haxeflixel.com/sprites/animation
 
-
 // Menu Body
 		var menuBody:FlxSprite;
 
@@ -75,11 +69,6 @@ var changeValue:Int; // for one function just so i can reference it omg
 		lime.app.Application.current.window.opacity = 0;
 		FlxTween.tween(lime.app.Application.current.window, {opacity: 1}, 0.5, {type: FlxTweenType.ONESHOT, ease: FlxEase.cubeOut});
 		currentBarText = defaultBarText;
-
-		// Modified from https://discord.com/channels/162395145352904705/165234904815239168/950650164295651358 while trying to look for an example of tweening an integer which I thought I needed but realized I could've used this.
-		/*#else
-		FlxTween.tween(backgroundHome, {alpha: 1}, 0.5,{type: FlxTweenType.ONESHOT, ease: FlxEase.cubeOut});
-		#end*/
 
 		mainText = new FlxText(115, 54, 500); // x, y, width
 		mainText.text = nameTitle;

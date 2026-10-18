@@ -1,15 +1,10 @@
 package smallMenus;
 
-import flixel.FlxG;
-import flixel.FlxSprite;
+/* FlxG and FlxSprite are in import.hx*/
 import flixel.FlxSubState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
 import smallMenus.MenuIcon;
-
-// For potential icon movement.
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
 
 class HomeMesu extends FlxSubState
 {
@@ -80,7 +75,6 @@ var layout_yPosition_Before_Recount:Int = 0; // I think I'll use this simialry o
 				}
 
 				add (curMadeSelectionIcons);
-
 
 	}
 

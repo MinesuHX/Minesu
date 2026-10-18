@@ -7,6 +7,10 @@ import flixel.group.FlxSpriteGroup;
 //import flash.display.BitmapData;
 import flixel.util.FlxSpriteUtil;
 
+// For potential icon movement.
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+
 class MenuIcon extends FlxSpriteGroup{
 // Reference A: https://github.com/FunkinCrew/Funkin/blob/main/source/funkin/ui/freeplay/SongMenuItem.hx
 	// Heavy reference as I've not worked with FlxSpriteGroups before and I just didn't want to get any example code up.
@@ -20,6 +24,7 @@ public var icon:FlxSprite;
 var iconGraphic:String;
 var selected:Bool;
 
+var type:Int; // For the animate function.
 var isVisible:Bool; // Is meant to determine if the icon is visible.
 var currentStatus:String; // Like the prior variable, but more advanced.
 
@@ -29,7 +34,7 @@ var gameConfig = haxe.Json.parse("{}");
     public function new(x:Int, y:Int, iconGraphic:String){ // iconGraphic will just be JSON loading, lol.
 			super(x, y);
 
-			border = new FlxSprite();
+						border = new FlxSprite();
 						border.loadGraphic("assets/images/menuBody/mainMenu/Icon Borders.png", true, 170, 170);
 						border.animation.add("idle", [0], 1);
 						border.animation.add("select", [1], 1);
@@ -45,6 +50,7 @@ var gameConfig = haxe.Json.parse("{}");
 						iconMask.y = y;
 						iconMask.x = x;
 						iconMask.updateHitbox();
+						iconMask.alpha = 0.01;
 
 						iconToBeClipped = new FlxSprite();
 						iconToBeClipped.loadGraphic("assets/images/menuBody/mainMenu/default.png"); // Default.
@@ -57,6 +63,7 @@ var gameConfig = haxe.Json.parse("{}");
 						iconToBeClipped.updateHitbox();
 						iconToBeClipped.y = y;
 						iconToBeClipped.x = x;
+						iconToBeClipped.alpha = 0.01;
 
 
 			icon = new FlxSprite();
@@ -64,6 +71,9 @@ var gameConfig = haxe.Json.parse("{}");
 			icon.updateHitbox();
 			icon.alpha = 0.01;
 			add(icon);
+			var timer:FlxTimer = new FlxTimer();
+			timer.start(0.25, (_) -> { animate(1); });
+
 
 			}else{
 				border.visible = false;
@@ -72,15 +82,24 @@ var gameConfig = haxe.Json.parse("{}");
 
     }
 
-    public function animate(type:Int){ // 0 for death/dissapear, 1 for spawning in, and maybe if I feel like it, two would be
+    public function animate(type:Int){ // 0 for death/dissapear, 1 for spawning in, and maybe if I feel like it, two would be a "shaking" incase say an icon were to be moved. Only hypothetical however.
 
-				// Summon, assumes that the icon sprite has been created already with an alpha of 0.01.
-					FlxTween.tween(icon, {alpha: 1}, duration, {type: tweenType, easing: FlxEase: easeFunction});
-				// Dissapear, assumes that the icon sprite has been made fully visible already.
-					FlxTween.tween(icon, {alpha: 0.01}, duration, {type: tweenType, easing: FlxEase: easeFunction});
-
-
-
+				switch type{
+					// Dissapear, assumes that the icon sprite has been made fully visible already.
+					case 0:{
+								FlxTween.tween(icon, {alpha: 0.01}, 0.5, {ease: FlxEase.expoInOut});
+								isVisible = false;
+								currentStatus = "hidden";
+					}
+					// Summon, assumes that the icon sprite has been created already with an alpha of 0.01.
+					case 1:{
+							FlxTween.tween(icon, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
+							isVisible = true;
+							currentStatus = "visible";
+					}
+				 	// Shaking. TBD
+					case 2: trace("This feature has not been implemented yet!"); animate(0);// TBD
+				}
 
     }
 

@@ -1,7 +1,6 @@
 package smallMenus;
 
-import flixel.FlxG;
-import flixel.FlxSprite;
+/* FlxG, FlxSprite, and FlxState are in import.hx*/
 import flixel.FlxSubState;
 
 import flixel.FlxCamera; // So I can have the options in a "contained" area.
@@ -11,7 +10,6 @@ class SettingsArea extends FlxSubState
 {
 var SettingsContent:Array<Array<String>> = [
 	["Settings Title"]
-
 ];
 
 var focusItemCamera:FlxCamera; // thank goodness i've used flxcameras in a project before since i dont wanna re-learn it
