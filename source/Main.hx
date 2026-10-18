@@ -4,102 +4,40 @@ import flixel.FlxGame;
 import openfl.display.Sprite;
 import flixel.FlxG;
 
-#if hxdiscord_rpc
-import hxdiscord_rpc.Discord;
-import hxdiscord_rpc.Types;
-import sys.thread.Thread;
-#end
-
 import haxe.ui.Toolkit;
+
+// Crash Handler
+	import lime.app.Application;
+	#if CRASH_HANDLER
+		import openfl.events.UncaughtErrorEvent;
+		//import dge.states.ErrorState;
+		import haxe.CallStack;
+		import haxe.io.Path;
+	#end
 
 class Main extends Sprite
 {
 	public function new()
-	{
+	{ // The first line is for the transparent fade-in effect at the start of the program.
 		lime.app.Application.current.window.opacity = 0;
 		super();
 		Toolkit.init();
+		//#if debug Application.current.window.alert("This software is still in development.", "Disclaimer"); #end
 		addChild(new FlxGame(1920, 1080, Menu));
 		FlxG.mouse.load('assets/images/cursor.png');
 
+		// Refer to this:
+				// https://github.com/DibyoExcel/Dragon-Engine/blob/c0fc2b6d7eaa01d7d6bc4cd82bca013ad3a2ff58/source/Main.hx#L166
+				// For potential crash handler method.
 
-		#if hxdiscord_rpc
+		// Code referenced from the "Dragon Engine" source code which apparently was written entirely by "sqirra-rng"
+			#if supports_crash_handler
+				function onCrash(e:UncaughtErrorEvent):Void{
+						trace("Fatal Error! " + e.error);
+						Application.current.window.alert(e.error, "Fatal Error!"); // Temporary before I make it fancy!
 
-		Sys.println('Initializing Discord RPC...');
 
-		final handlers:DiscordEventHandlers = new DiscordEventHandlers();
-		handlers.ready = cpp.Function.fromStaticFunction(onReady);
-		handlers.disconnected = cpp.Function.fromStaticFunction(onDisconnected);
-		handlers.errored = cpp.Function.fromStaticFunction(onError);
-		Discord.Initialize("1524305342287187979", cpp.RawPointer.addressOf(handlers), false, null);
-
-		Thread.create(function():Void
-		{
-			while (true)
-			{
-				#if DISCORD_DISABLE_IO_THREAD
-				Discord.UpdateConnection();
-				#end
-
-				Discord.RunCallbacks();
-
-				Sys.sleep(2);
-			}
-		});
-
-		/*Sys.sleep(10);
-
-		Sys.println('Shutting down Discord RPC...');
-
-		Discord.Shutdown();*/
-
-		#end
-
+				}
+			#end
 	}
-
-	#if hxdiscord_rpc
-
-	private static function onReady(request:cpp.RawConstPointer<DiscordUser>):Void
-	{
-		final username:String = request[0].username;
-		final globalName:String = request[0].username;
-		final discriminator:Int = Std.parseInt(request[0].discriminator);
-
-		if (discriminator != 0)
-			Sys.println('Discord: Connected to user ${username}#${discriminator} ($globalName)');
-		else
-			Sys.println('Discord: Connected to user @${username} ($globalName)');
-
-		final discordPresence:DiscordRichPresence = new DiscordRichPresence();
-		discordPresence.type = DiscordActivityType_Watching;
-		discordPresence.state = "Prototype";
-		discordPresence.details = "Minesu";
-		discordPresence.largeImageKey = "canary-large";
-		discordPresence.smallImageKey = "ptb-small";
-
-		final button:DiscordButton = new DiscordButton();
-		button.label = "Test 1 (iiSU Website)";
-		button.url = "https://iisu.network";
-		discordPresence.buttons[0] = button;
-
-		final button:DiscordButton = new DiscordButton();
-		button.label = "Test 2 (Source Code)";
-		button.url = "https://github.com/MinesuHX/Minesu";
-		discordPresence.buttons[1] = button;
-
-		Discord.UpdatePresence(cpp.RawConstPointer.addressOf(discordPresence));
-	}
-
-	private static function onDisconnected(errorCode:Int, message:cpp.ConstCharStar):Void
-	{
-		Sys.println('Discord: Disconnected ($errorCode:$message)');
-	}
-
-	private static function onError(errorCode:Int, message:cpp.ConstCharStar):Void
-	{
-		Sys.println('Discord: Error ($errorCode:$message)');
-	}
-
-	#end
-
 }

@@ -25,8 +25,8 @@ var iconGraphic:String;
 var selected:Bool;
 
 var type:Int; // For the animate function.
-var isVisible:Bool; // Is meant to determine if the icon is visible.
-var currentStatus:String; // Like the prior variable, but more advanced.
+public var isVisible:Bool; // Is meant to determine if the icon is visible.
+public var currentStatus:String; // Like the prior variable, but more advanced.
 
 var gameConfig = haxe.Json.parse("{}");
 
@@ -88,7 +88,7 @@ var gameConfig = haxe.Json.parse("{}");
 				switch type{
 					// Dissapear, assumes that the icon sprite has been made fully visible already.
 					case 0:{
-								FlxTween.tween(icon, {alpha: 0.01}, 0.5, {ease: FlxEase.expoInOut});
+								FlxTween.tween(icon, {alpha: 0.01}, 0.65, {ease: FlxEase.expoInOut});
 								FlxTween.tween(border, {alpha: 0.01}, 0.5, {ease: FlxEase.expoInOut});
 								// The reason the border gets tweened as well is since the icon variable is the focus part being clipped onto the "decorator" as one sprite. But the border is a seperate sprite, so that has to be tweened as well.
 								//I could make the border and icon sprite into another combined/clipped sprite, but that would be too much work.
@@ -97,13 +97,13 @@ var gameConfig = haxe.Json.parse("{}");
 					}
 					// Summon, assumes that the icon sprite has been created already with an alpha of 0.01.
 					case 1:{
-							FlxTween.tween(icon, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
+							FlxTween.tween(icon, {alpha: 1}, 0.65, {ease: FlxEase.expoInOut});
 							FlxTween.tween(border, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
 							isVisible = true;
 							currentStatus = "visible";
 					}
-				 	// Shaking. TBD
-					case 2: trace("This feature has not been implemented yet!"); animate(0);// TBD
+				 	// Shaking. Make it rotate to -8 and 8 degrees.
+					case 2: trace("This feature has not been implemented yet!"); animate(0);
 				}
 
     }

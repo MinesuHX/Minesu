@@ -126,19 +126,13 @@ var changeValue:Int; // for one function just so i can reference it omg
 			{type: FlxTweenType.ONESHOT, ease: FlxEase.cubeOut});}
 		);
 
-				tsp = new FlxText((FlxG.width - 1000), 156, 500); // x, y, width
+				tsp = new FlxText((FlxG.width - 700), 200, 500); // x, y, width
 				tsp.text = "Place: None";
 				tsp.setFormat("FOT-RodinBokutohPro-B.otf", 25, 0xff403a46);
 				tsp.antialiasing = true;
 				tsp.updateHitbox();
 				add(tsp);
 
-		//openSubState(new HomeMesu());
-
-		/*systemBar = new FlxSprite();
-				systemBar.loadGraphic("assets/images/bottomBar/bar.png");
-				systemBar.y = FlxG.height - systemBar.height;
-				//add(systemBar);*/
 				systemBar = new FlxSprite();
 				systemBar.loadGraphic("assets/images/bottom_bar.png");
 				systemBar.scale.x = FlxG.width; // (This is good since the bar is a one pixel wide graphic.)
@@ -146,21 +140,14 @@ var changeValue:Int; // for one function just so i can reference it omg
 				systemBar.updateHitbox();
 				systemBar.screenCenter(X);
 				systemBar.y = FlxG.height;
-				add(systemBar);
-				// Do the tween when the systemBar is "summoned"/needed, say for when a game is selected and whatnot.
 
-				// Summon
-				//var timer:FlxTimer = new FlxTimer();
-				//timer.start(0,
-				//(_) ->
+				// Bar summon.
 				FlxTween.tween(systemBar, { y: (FlxG.height  - systemBar.height) }, 1, {
 						type: FlxTweenType.ONESHOT,
 						ease: FlxEase.cubeOut
 						//onComplete: {trace(systemBar.y)}
 				});
 						systemBar.updateHitbox();
-
-				//);
 
 				barText = new FlxText(564, 1034, FlxG.width - 50); // x, y, width, replace Y-axis with a value based off of the distance in height.
 				barText.text = nameTitle;
@@ -169,8 +156,12 @@ var changeValue:Int; // for one function just so i can reference it omg
 				barText.antialiasing = true;
 				barText.alignment = CENTER;
 				barText.updateHitbox();
-				add(barText);
 				barText.text = defaultBarText;
+				FlxTween.tween(barText, { y: (FlxG.height  - barText.height) }, 1, {
+						type: FlxTweenType.ONESHOT,
+						ease: FlxEase.cubeOut
+						//onComplete: {trace(barText.y)}
+				});
 
 		// {x:staTextNeed, alpha: 1}
 
@@ -196,8 +187,8 @@ var changeValue:Int; // for one function just so i can reference it omg
 		}
 		pageSwitch(0, false);
 
-
-
+		add(systemBar);
+		add(barText);
 
 	}
 
@@ -257,13 +248,16 @@ var changeValue:Int; // for one function just so i can reference it omg
 	canSwitchTabs = false;
 	//trace(menuEntries[menuTab]);
 	menuTab += changeValue;
-	trace("Changed value by: " + changeValue + ". New value: " + menuTab);
+	trace("Menu value changed by: " + changeValue + ". New value: " + menuTab);
 
 				if (menuTab > -1 && menuTab < 4){ // Checks if it's inbetween -1 & +4.
+
 					menuPrimaryButtons.members[menuTab].animation.play("select");
 					trace("true");
 					canSwitchTabs = true;
+
 				}else{
+
 					if (menuTab < 0) // If the value is under zero, then it adds three. So -1 would become 3, which would be the final entry.
 						menuTab += 4;
 					if (menuTab > 3) // If the value is above three, then it rolls back four. So 4 would become 0, which would be the first menu entry.
@@ -276,6 +270,7 @@ var changeValue:Int; // for one function just so i can reference it omg
 				{
 					switch (menuTab){
 						case 0: openSubState(new HomeMesu());
+						case 1: FlxSubState.HomeMenu.closeSub();
 						case 2: openSubState(new SettingsArea());
 					}
 				}

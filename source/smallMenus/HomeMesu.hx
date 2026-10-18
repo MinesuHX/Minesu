@@ -53,7 +53,7 @@ var layout_yPosition_Before_Recount:Int = 0; // I think I'll use this simialry o
 				deg.updateHitbox();
 				add(deg);*/
 
-		curMadeSelectionIcons = new FlxTypedGroup<MenuIcon>();
+			curMadeSelectionIcons = new FlxTypedGroup<MenuIcon>();
 			makeBlankSpaces();
 
 			// To be redone.
@@ -70,8 +70,11 @@ var layout_yPosition_Before_Recount:Int = 0; // I think I'll use this simialry o
 					yPos = verticPositions[ Math.floor(currentIndex / columns)  ];
 
 					testPoop = new MenuIcon( xPos - 31, yPos + 38,	menuArrange[i]);
-					trace("Old Trace -- Index: " + currentIndex + ", X: " + xPos + ", Y: " + yPos);
+					//trace("Old Trace -- Index: " + currentIndex + ", X: " + xPos + ", Y: " + yPos);
 					curMadeSelectionIcons.add(testPoop);
+					if (curMadeSelectionIcons.members[i].isVisible == false){
+						curMadeSelectionIcons.members[i].animate(1);
+					}
 				}
 
 				add (curMadeSelectionIcons);
@@ -96,22 +99,37 @@ var layout_yPosition_Before_Recount:Int = 0; // I think I'll use this simialry o
 				curMadeSelectionIcons.members[i].border.animation.play("idle");
 		}
 
+		/*if (FlxG.keys.justPressed.Q || FlxG.keys.justPressed.E)
+				{
+						//menuPrimaryButtons.members[menuTab + 1].animation.play("idle");
+						//pageSwitch(1, false);
+						closeSub();
+				}*/
 
 
 	}
 
 	private function closeSub():Void
 	{
+				for (i in 0...menuArrange.length){
+
+					var currentIndex:Int;
+					currentIndex = menuArrange.indexOf(menuArrange[i]);
+					if (curMadeSelectionIcons.members[i].isVisible == true){
+						curMadeSelectionIcons.members[i].animate(2);
+					}
+				}
+
 		close();
 	}
 
-	function makeBlankSpaces(){
+	function makeBlankSpaces(){ // Note: I wonder if I could put this into the MenuIcon place.
 		for (h in 0...verticPositions.length){
 				for (i in 0...horizPositions.length){
 					iconSlot = new FlxSprite();
 					iconSlot.loadGraphic("assets/images/menuBody/mainMenu/Blank Icon.png");
-					iconSlot.x = horizPositions[i];
-					iconSlot.y = verticPositions[h];
+					iconSlot.x = horizPositions[i]  - 31;
+					iconSlot.y = verticPositions[h] + 38;
 					iconSlot.updateHitbox();
 					add(iconSlot);
 				}
