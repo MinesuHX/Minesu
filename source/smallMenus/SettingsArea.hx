@@ -9,6 +9,10 @@ import flixel.util.FlxColor; // For the reference box and text. //
 
 class SettingsArea extends FlxSubState
 {
+var SettingsContent:Array<Array<String>> = [
+	["Settings Title"]
+
+];
 
 var focusItemCamera:FlxCamera; // thank goodness i've used flxcameras in a project before since i dont wanna re-learn it
 

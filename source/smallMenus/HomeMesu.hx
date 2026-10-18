@@ -7,6 +7,10 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
 import smallMenus.MenuIcon;
 
+// For potential icon movement.
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+
 class HomeMesu extends FlxSubState
 {
 
@@ -43,7 +47,7 @@ var layout_yPosition_Before_Recount:Int = 0; // I think I'll use this simialry o
 		columns = horizPositions.length;
 		rows = verticPositions.length;
 
-		var deg:FlxText;
+		/*var deg:FlxText;
 				deg = new FlxText((FlxG.width - 600), 156, 500); // x, y, width
 				deg.text = "Layout:" + haxe.Json.stringify(menuArrange); // Very convinient...
 				//deg.text = "Extra Placeholder";
@@ -52,17 +56,12 @@ var layout_yPosition_Before_Recount:Int = 0; // I think I'll use this simialry o
 				deg.setFormat("FOT-RodinBokutohPro-B.otf", 25, 0xff403a46);
 				deg.antialiasing = true;
 				deg.updateHitbox();
-				add(deg);
+				add(deg);*/
 
 		curMadeSelectionIcons = new FlxTypedGroup<MenuIcon>();
-
-		// user slameron in the haxe discord suggested the idea of reading from an array and then moving based on division and stuff
-					// so in theory i could turn the home_layout.json file into maybe some kinda global storage/options file too
-					// as quoted from him or her:
-						// if its all an array you could do insert on the array at the index you want it at and for the grid the x index would be the array position % columns and the y index would be Math.floor(array position / columns), i think
-
 			makeBlankSpaces();
 
+			// To be redone.
 				for (i in 0...menuArrange.length){
 
 					var testPoop:MenuIcon;

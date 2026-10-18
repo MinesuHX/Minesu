@@ -23,41 +23,43 @@ import flixel.util.FlxTimer;
 class Menu extends FlxState
 {
 
-var backgroundHome:FlxSprite;
-var backgroundSetting:FlxSprite;
-var backgroundDots:FlxSprite; // Wallpaper
+// Background
+		var backgroundHome:FlxSprite;
+		var backgroundSetting:FlxSprite;
+		var backgroundDots:FlxSprite; // Wallpaper
 
 // Text
-var defaultFont:String = "FOT-RodinBokutohPro-B.otf";
-var mainColor:Int = 0xff403a46;
+		var defaultFont:String = "FOT-RodinBokutohPro-B.otf";
+		var mainColor:Int = 0xff403a46;
 
-// Text Elements
-var mainText:FlxText;
-var statisticsText:FlxText;
+// Top Text
+		var mainText:FlxText;
+		var statisticsText:FlxText;
+		var nameTitle:String = "Home Mesu";
 
-// Date and Time
-var currentDate:String;
-var properHour:Int;
-var isPMTime:Bool;
-var systemUsername:String = Sys.environment()["USERNAME"];
+// Date & Time
+		var currentDate:String;
+		var properHour:Int;
+		var isPMTime:Bool;
+		var systemUsername:String = Sys.environment()["USERNAME"];
 
-// Body
-var menuBody:FlxSprite;
+// Menu Buttons
+		var menuSingleButton:FlxSprite; // Thanks https://www.thesaurus.com/browse/individual
+		var menuPrimaryButtons:FlxTypedGroup<FlxSprite>;
 
-// Primary Buttons + Subset(?)
-var nameTitle:String = "Home Mesu";
+		var menuEntries:Array<String> = ["Home", "Categories", "Settings", "Customize"];
+		var menuXPositions:Array<Int> = [103, 273, 443, 613]; // All have a difference of 170. Keep that in mind.
+		//var animationFrames = [1, 2]; // https://snippets.haxeflixel.com/sprites/animation
 
-var menuSingleButton:FlxSprite; // Thanks https://www.thesaurus.com/browse/individual
-var menuPrimaryButtons:FlxTypedGroup<FlxSprite>;
 
-var menuEntries:Array<String> = ["Home", "Categories", "Settings", "Customize"];
-var menuXPositions:Array<Int> = [103, 273, 443, 613];
-//var animationFrames = [1, 2]; // https://snippets.haxeflixel.com/sprites/animation
+// Menu Body
+		var menuBody:FlxSprite;
 
-var systemBar:FlxSprite;
-var barText:FlxText;
-var defaultBarText:String = "Use your inputs to traverse! (WIP)";
-var currentBarText:String;
+// Bottom Menu Bar
+		var systemBar:FlxSprite;
+		var barText:FlxText;
+		var defaultBarText:String = "Use your inputs to traverse! (WIP)";
+		var currentBarText:String;
 
 var tsp:FlxText; // Status text. Temporary.
 var canSwitchTabs:Bool = true;

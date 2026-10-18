@@ -19,6 +19,10 @@ public var icon:FlxSprite;
 
 var iconGraphic:String;
 var selected:Bool;
+
+var isVisible:Bool; // Is meant to determine if the icon is visible.
+var currentStatus:String; // Like the prior variable, but more advanced.
+
 /*var gameConfig = haxe.Json.parse(sys.io.File.getContent('assets/data/testGameConfig.json'));*/
 var gameConfig = haxe.Json.parse("{}");
 
@@ -58,12 +62,25 @@ var gameConfig = haxe.Json.parse("{}");
 			icon = new FlxSprite();
 			FlxSpriteUtil.alphaMaskFlxSprite(iconToBeClipped, iconMask, icon); // Seems the image I wanted to mask needed to go before what needed to be masked. Maybe it was in an update? I do not know.
 			icon.updateHitbox();
-				add(icon);
+			icon.alpha = 0.01;
+			add(icon);
 
 			}else{
 				border.visible = false;
 				trace("Expected: " + iconGraphic + "at XY:" + x + "," + y);
 			}
+
+    }
+
+    public function animate(type:Int){ // 0 for death/dissapear, 1 for spawning in, and maybe if I feel like it, two would be
+
+				// Summon, assumes that the icon sprite has been created already with an alpha of 0.01.
+					FlxTween.tween(icon, {alpha: 1}, duration, {type: tweenType, easing: FlxEase: easeFunction});
+				// Dissapear, assumes that the icon sprite has been made fully visible already.
+					FlxTween.tween(icon, {alpha: 0.01}, duration, {type: tweenType, easing: FlxEase: easeFunction});
+
+
+
 
     }
 
