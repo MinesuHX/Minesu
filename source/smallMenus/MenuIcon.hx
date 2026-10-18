@@ -38,7 +38,8 @@ var gameConfig = haxe.Json.parse("{}");
 						border.animation.add("idle", [0], 1);
 						border.animation.add("select", [1], 1);
 						border.updateHitbox();
-							add(border);
+						border.alpha = 0.01;
+						add(border);
 
 			if (iconGraphic != null){
 						gameConfig = haxe.Json.parse(sys.io.File.getContent('external/games/config/' + iconGraphic + '.json'));
@@ -71,12 +72,13 @@ var gameConfig = haxe.Json.parse("{}");
 			icon.alpha = 0.01;
 			add(icon);
 			var timer:FlxTimer = new FlxTimer();
-			timer.start(0.25, (_) -> { animate(1); });
-
+				timer.start(0.25, (_) -> { animate(1); });
 
 			}else{
+
 				border.visible = false;
 				trace("Expected: " + iconGraphic + "at XY:" + x + "," + y);
+
 			}
 
     }
@@ -87,12 +89,16 @@ var gameConfig = haxe.Json.parse("{}");
 					// Dissapear, assumes that the icon sprite has been made fully visible already.
 					case 0:{
 								FlxTween.tween(icon, {alpha: 0.01}, 0.5, {ease: FlxEase.expoInOut});
+								FlxTween.tween(border, {alpha: 0.01}, 0.5, {ease: FlxEase.expoInOut});
+								// The reason the border gets tweened as well is since the icon variable is the focus part being clipped onto the "decorator" as one sprite. But the border is a seperate sprite, so that has to be tweened as well.
+								//I could make the border and icon sprite into another combined/clipped sprite, but that would be too much work.
 								isVisible = false;
 								currentStatus = "hidden";
 					}
 					// Summon, assumes that the icon sprite has been created already with an alpha of 0.01.
 					case 1:{
 							FlxTween.tween(icon, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
+							FlxTween.tween(border, {alpha: 1}, 0.5, {ease: FlxEase.expoInOut});
 							isVisible = true;
 							currentStatus = "visible";
 					}
